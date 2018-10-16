@@ -1,5 +1,6 @@
 package loopInvariants;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Invariants {  
@@ -57,9 +58,46 @@ public class Invariants {
         return a;
     }
     
-    static int select (int a[], int n, int k) {
+    static int select (int a[], int l, int r, int k) {
+        if(r - l == 1) {
+            return a[l];
+        }
         
-        return 1;
+        //keep the value which will become our pivot
+        int pivotVal = a[l];
+        
+        //partition the array around a[l]
+        a = partition(a, l, r);
+        
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i] + ", ");
+        }
+        System.out.println();
+        try {
+        TimeUnit.SECONDS.sleep(1);
+        }
+        catch(Exception e){
+        }
+        //find the index of the pivot
+        int searchVal = a[a.length - 1];
+        int middle = a.length - 1;
+        while (searchVal != pivotVal) {
+            middle--;
+            searchVal = a[middle];
+        }
+        
+        //if kth smallest element is middle (i.e. the pivot, which we know
+        //is in the correct position, is at index k - 1
+        System.out.println(middle);
+        if (k == (middle - l + 1)) {
+            return a[middle];
+        }
+        else if (k <= (middle - l)) {
+            return select(a, l, middle - 1, k);
+        }
+        else {
+            return select(a, middle + 1, r, k - (middle - l) - 1);
+        }
     }
     
     public static void main (String [] argv) {
@@ -100,6 +138,20 @@ public class Invariants {
         for (int i = 0; i < a.length; i++) {
             System.out.print(a[i] + ", ");
         }
+        
+        //randomized
+        for (int i = 0; i < a.length; i++) {
+            a[i] = ThreadLocalRandom.current().nextInt(0, 10);
+        }
+        
+        System.out.println("\nRandomized array");
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i] + ", ");
+        }
+        
+        System.out.println();
+        
+        System.out.println(select(a, 0, a.length - 1, 3));
     }
     
 }
