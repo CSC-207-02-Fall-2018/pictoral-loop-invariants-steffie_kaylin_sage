@@ -9,10 +9,10 @@
 /* ***************************************************************
  * Academic honesty certification:                               *
  *   Written/online sources used:                                *
- *     none    						                             *  
+ *     none    						         *  
  *                                                               *          
  *   Help obtained                                               *
- *     none    						                             *  
+ *     none    						         *  
  *                                                               *
  *   My signature below confirms that the above list of sources  *
  *   is complete AND that I have not talked to anyone else       *
