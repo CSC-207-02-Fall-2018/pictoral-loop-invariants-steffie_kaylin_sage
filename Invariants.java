@@ -1,6 +1,5 @@
 package loopInvariants;
 
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Invariants {  
@@ -15,7 +14,7 @@ public class Invariants {
      * @return an array with items between index left and right partitioned around 
      *  the value a[left]
      */
-    static int[] partition (int a[], int left, int right) {        
+    static int partition (int a[], int left, int right) {        
         int leftStart = left;
         int pivot = a[left];        
         
@@ -55,51 +54,51 @@ public class Invariants {
         a[leftStart] = a[right];
         a[right] = pivot;
         
-        return a;
+        return right;
     }
     
-    static int select (int a[], int l, int r, int k) {
-        if(r - l == 1) {
-            return a[l];
+    static int select (int a[], int k) {
+        return selectHelper(a, k, 0, a.length - 1);
+    }
+    
+    static int selectHelper (int a[], int k, int left, int right) {
+        if (right - left == 1) {
+            return a[k-1];
         }
-        
-        //keep the value which will become our pivot
-        int pivotVal = a[l];
-        
-        //partition the array around a[l]
-        a = partition(a, l, r);
-        
-        for (int i = 0; i < a.length; i++) {
-            System.out.print(a[i] + ", ");
-        }
-        System.out.println();
-        try {
-        TimeUnit.SECONDS.sleep(1);
-        }
-        catch(Exception e){
-        }
-        //find the index of the pivot
-        int searchVal = a[a.length - 1];
-        int middle = a.length - 1;
-        while (searchVal != pivotVal) {
-            middle--;
-            searchVal = a[middle];
-        }
-        
-        //if kth smallest element is middle (i.e. the pivot, which we know
-        //is in the correct position, is at index k - 1
-        System.out.println(middle);
-        if (k == (middle - l + 1)) {
+       
+        int middle = partition (a, left, right);
+       
+        if (middle == k - 1) {
             return a[middle];
         }
-        else if (k <= (middle - l)) {
-            return select(a, l, middle - 1, k);
+        else if (middle < k - 1){
+            return selectHelper(a, k, middle + 1, right);
         }
         else {
-            return select(a, middle + 1, r, k - (middle - l) - 1);
+            return selectHelper(a, k, left, middle - 1);
         }
     }
     
+    static int median (int a[]) {
+        if (a.length % 2 != 0){
+            return select(a, a.length / 2);
+        }
+        else {
+            return (select(a, a.length / 2) + select(a, (a.length / 2) + 1)) / 2;
+        }
+    }
+    
+    static void quicksort (int a[]) {
+        quicksortKernel (a, 0, a.length - 1);
+    }
+    
+    static void quicksortKernel (int a[], int left, int right) {
+        if (right - left >= 1) {
+            int middle = partition (a, left, right);            
+            quicksortKernel (a, left, middle - 1);
+            quicksortKernel (a, middle + 1, right);
+        }
+    }
     public static void main (String [] argv) {
         int [] a = new int[20];
         
@@ -114,7 +113,7 @@ public class Invariants {
         }
         
         System.out.println();
-        a = partition (a, 0, a.length-1);
+        partition (a, 0, a.length-1);
         
         for (int i = 0; i < a.length; i++) {
             System.out.print(a[i] + ", ");
@@ -133,7 +132,7 @@ public class Invariants {
         
         System.out.println();
         
-        a = partition (a, 0, a.length-1);
+        partition (a, 0, a.length-1);
         
         for (int i = 0; i < a.length; i++) {
             System.out.print(a[i] + ", ");
@@ -141,7 +140,7 @@ public class Invariants {
         
         //randomized
         for (int i = 0; i < a.length; i++) {
-            a[i] = ThreadLocalRandom.current().nextInt(0, 10);
+            a[i] = ThreadLocalRandom.current().nextInt(0, 100);
         }
         
         System.out.println("\nRandomized array");
@@ -151,7 +150,51 @@ public class Invariants {
         
         System.out.println();
         
-        System.out.println(select(a, 0, a.length - 1, 3));
+        System.out.println(select(a, 5));
+        
+        System.out.println();
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i] + ", ");
+        }
+        
+        //median        
+        for (int i = 0; i < a.length; i++) {
+            a[i] = ThreadLocalRandom.current().nextInt(0, 100);
+        }
+        
+        System.out.println("\nRandomized array");
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i] + ", ");
+        }
+        
+
+        System.out.println();
+        System.out.print("Median: ");
+        System.out.println(median(a));
+
+        System.out.println();
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i] + ", ");
+        }
+        
+        //quicksort
+        for (int i = 0; i < a.length; i++) {
+            a[i] = ThreadLocalRandom.current().nextInt(0, 100);
+        }
+        
+        System.out.println("\nRandomized array");
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i] + ", ");
+        }
+
+        System.out.println();
+
+        quicksort(a);
+        
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i] + ", ");
+        }
+
     }
     
 }
