@@ -77,6 +77,10 @@ public class DutchFlag {
 	 * with the pictorial loop invariant sectioning of: 
 	 * red, white, blue, colors unprocessed 
 	 * 
+	 * pre:  None
+	 * post: Sorts a given DutchFlag object array to 
+	 *       into sections of red, white, blue 
+	 * 
 	 */
 	public void invariantA() {
 		// All color sections begin at index 0 
@@ -139,6 +143,9 @@ public class DutchFlag {
 	 * with the pictorial loop invariant sectioning of: 
 	 * red, white, colors unprocessed, blue
 	 * 
+	 * pre:  None
+	 * post: Sorts a given DutchFlag object array to 
+	 *       into sections of red, white, blue 
 	 */
 	public void invariantB() {
 		/*
@@ -191,6 +198,10 @@ public class DutchFlag {
 	 * toString method will print out the entire 
 	 * color array with commons between each 
 	 * value of the array except for the last value
+	 * 
+	 * pre: None
+	 * post: Prints out a DutchFlag object array's
+	 *       values
 	 */
 	public String toString() {
 		for (int i = 0; i < colors.length; i++) {
