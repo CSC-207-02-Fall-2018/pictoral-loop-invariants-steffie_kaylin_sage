@@ -1,0 +1,58 @@
+1. The exit condition is when l > r, as this is the point when all items
+have been examined. when r=l, that means there's still one element left to
+examine, but after that we can stop.
+
+_____________________________________________________________________________
+
+Testing and statement of correctness:
+
+For each method in Invariants. java we have tested many times on a
+randomized datasets with varying lengths of array (both even and odd) and
+various ranges of values in order to make sure they each are correct. Below
+is an example of test output for partition(), select(), median() and
+quicksort(), in that order:
+
+Randomized array: 72, 99, 27, 8, 19, 50, 94, 9, 77, 74, 17, 2, 49, 93, 21,
+27, 29, 90, 22, 46 
+Partitioned array: 21, 46, 27, 8, 19, 50, 22, 9, 29, 27, 17, 2, 49, 72, 93,
+74, 77, 90, 94, 99 
+
+Randomized array: 8, 38, 29, 58, 93, 7, 44, 79, 44, 52, 90, 13, 86, 5, 76,
+63, 88, 99, 97, 14 
+Selecting 5th smallest value: 14
+
+Randomized array: 69, 13, 4, 65, 11, 19, 29, 69, 67, 8, 33, 83, 40, 29, 39,
+8, 92, 19, 82, 6 
+Median: 31
+Partially sorted array to check median: 8, 6, 4, 8, 11, 19, 13, 19, 29, 29,
+33, 39, 40, 65, 67, 69, 69, 92, 82, 83 
+
+Randomized array :86, 91, 26, 73, 66, 12, 60, 94, 49, 39, 38, 43, 98, 19,
+59, 77, 32, 33, 29, 0 
+Sorted array: 0, 12, 19, 26, 29, 32, 33, 38, 39, 43, 49, 59, 60, 66, 73,
+77, 86, 91, 94, 98
+
+As you can see from this output, each method has performed the correct
+operation, as described in the prompt.
+
+
+For the Dutch National Flag problem, we also tested on randomized datasets
+of even and odd lengths a number of times. Example output is below:
+
+Initial Array For invariantA method:
+blue, red, blue, red, red, white, white, white, blue, white, blue, blue,
+red, red, white 
+Sorted Array w/invariantA method:
+blue, blue, blue, red, red, white, white, white, white, white, blue, blue,
+blue, blue, blue 
+
+Initial Array For invariantB method:
+blue, blue, red, red, white, red, white, blue, white, red, white, red,
+blue, blue, white 
+Sorted Array w/invariantB method:
+red, red, red, red, red, white, white, white, white, white, blue, blue,
+blue, blue, blue 
+
+
+As you can see from this output, each method has correctly sorted the input
+array into red, white, and blue using different methods.
